@@ -1,0 +1,48 @@
+name: Build, Test, and Publish Ubuntu Image
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "**"
+
+jobs:
+  push_to_registry:
+    name: Push Ubuntu Image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: nexientdevops/container-template
+          tags: |
+            type=raw,value=latest,suffix=-ubuntu
+            type=ref,event=tag,suffix=-ubuntu
+            type=sha,suffix=-ubuntu
+      - name: Build Ubuntu Based Image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Dockerfiles/Ubuntu/2204
+          push: false
+          tags: nexientdevops/container-template:test-ubuntu
+      - name: Run Container Tests
+        uses: ./.github/actions/container-structure-test
+        with:
+          image: nexientdevops/container-template:test-ubuntu
+          config: test.yaml
+      - name: Push Ubuntu Based Image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Dockerfiles/Ubuntu/2204
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

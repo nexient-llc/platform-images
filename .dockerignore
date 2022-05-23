@@ -1,0 +1,42 @@
+# Ignore Standard Repo Items
+.git
+.gitattributes
+.github
+.gitignore
+test.yaml
+
+# Ignore any local logs
+logs/
+
+# Ignore any potential secrets
+passwords.txt
+
+# Ignore any cache/coverage
+.cache
+.coverage
+.coverage.*
+
+# Recommended NodeJS
+**/node_modules/
+**/dist
+npm-debug.log
+.env
+.aws
+
+# Recommended Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache
+.pytest_cache
+.hypothesis
