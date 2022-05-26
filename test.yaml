@@ -1,16 +1,78 @@
 ---
 schemaVersion: 2.0.0
 commandTests:
+  - name: Ensure bash
+    command: bash
+    args:
+      - --version
   - name: Ensure curl
     command: curl
     args:
       - --version
-# fileExistenceTests:
-#   - name: App working directory
-#     path: /app
-#     shouldExist: true
+  - name: Ensure conftest
+    command: conftest
+    args:
+      - --version
+  - name: Ensure git
+    command: git
+    args:
+      - --version
+  - name: Ensure nodejs
+    command: node
+    args:
+      - --version
+  - name: Ensure npm
+    command: npm
+    args:
+      - --version
+  - name: Ensure OPA
+    command: opa
+    args:
+      - version
+  - name: Verify Python symlink
+    command: python
+    args:
+      - --version
+  - name: Ensure pip
+    command: pip
+    args:
+      - --version
+  - name: Ensure repo
+    command: repo
+    args:
+      - --version
+  - name: Ensure ssh
+    command: ssh
+    args:
+      - -V
+  - name: Ensure terraform
+    command: terraform
+    args:
+      - --version
+  - name: Ensure SemVer Bot
+    command: sbot
+    args:
+      - help
+  - name: Ensure tflint
+    command: tflint
+    args:
+      - --version
+fileExistenceTests:
+  - name: App working directory
+    path: /app
+    shouldExist: true
+# Doesn't work with ARGS
 # metadataTest:
 #   env:
-#     - key: TEST_ENV
+#     - key: CONFTEST_VERSION
+#       isRegex: true
+#       value: \d+\.\d+\.\d+
+#     - key: OPA_VERSION
+#       isRegex: true
+#       value: \d+\.\d+\.\d+
+#     - key: TERRAFORM_VERSION
+#       isRegex: true
+#       value: \d+\.\d+\.\d+
+#     - key: TFLINT_VERSION
 #       isRegex: true
 #       value: \d+\.\d+\.\d+
