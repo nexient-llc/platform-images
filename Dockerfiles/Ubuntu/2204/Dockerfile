@@ -28,12 +28,8 @@ RUN apt-get update \
   && mkdir /app \
   && cd /app \
   && pip install --no-cache-dir --upgrade pip \
-  && npm install --global @semantic-release/git semantic-release \
-  && npm cache clean --force \
   && ln -sf /usr/bin/python3 /usr/bin/python \
   && pip install --no-cache-dir pre-commit \
-  && pip install --no-cache-dir --upgrade azure-cli \
-  && az extension add --name azure-devops \
   && curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null \
   && AZ_REPO=$(lsb_release -cs) \
   && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list \

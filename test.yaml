@@ -1,17 +1,6 @@
 ---
 schemaVersion: 2.0.0
 commandTests:
-  - name: Ensure azure-cli
-    command: az
-    args:
-      - --version
-  - name: Ensure we have the Azure DevOps extension
-    command: az
-    args:
-      - extension
-      - show
-      - --name
-      - azure-devops
   - name: Ensure bash
     command: bash
     args:
@@ -50,10 +39,6 @@ commandTests:
       - --version
   - name: Ensure repo
     command: repo
-    args:
-      - --version
-  - name: Ensure semantic-release
-    command: semantic-release
     args:
       - --version
   - name: Ensure ssh

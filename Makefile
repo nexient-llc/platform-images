@@ -2,10 +2,10 @@ HOSTNAME ?= registry-1.docker.io
 REGION ?= us-east-1
 USERNAME ?= replace
 TOKEN ?= replace
-REPO ?= container-template
+REPO ?= platform-images
 TAG ?= dev
 PLATFORM ?= linux/amd64
-FILE ?= ./Dockerfiles/Alpine/3/Dockerfile
+FILE ?= ./Dockerfiles/Ubuntu/2204/Dockerfile
 REGISTRY ?= dockerhub
 DOCKERHUB_ORG ?= nexientdevops
 PROGRAM ?= docker
@@ -47,7 +47,11 @@ build:
 
 .PHONY: run
 run:
-	docker run --name $(TAG) --rm -it $(REPO):$(TAG)
+	docker run \
+		--name $(TAG) \
+		--platform=$(PLATFORM) \
+		--rm \
+		-it $(REPO):$(TAG)
 
 .PHONY: tag
 tag:

@@ -1,12 +1,9 @@
-# Container Image Template <!-- omit in toc -->
+# Platform Images <!-- omit in toc -->
 
-<INSERT DESCRIPTION>
+<!-- INSERT DESCRIPTION -->
 
 ## Table Of Contents <!-- omit in toc -->
 Can be automanaged by [Markdown All in One](https://github.com/yzhang-gh/vscode-markdown) by Yu Zhang
-- [How to Use This Template](#how-to-use-this-template)
-  - [Using Different Registries](#using-different-registries)
-  - [Ignore Files](#ignore-files)
 - [Quick Reference](#quick-reference)
 - [Tagged Dockerfiles](#tagged-dockerfiles)
 - [Usage](#usage)
@@ -30,49 +27,20 @@ Can be automanaged by [Markdown All in One](https://github.com/yzhang-gh/vscode-
   - [Release A New Version](#release-a-new-version)
 
 
-<TEMPLATE ONLY, REMOVE IN GENERATED REPO - START>
-
-## How to Use This Template
-
-This template is just a best practice layout for docker images and building/pushing them to Docker Hub. This can be used for any container and registry service, however the github workflows and examples are geared towards Docker and Docker Hub as default.
-
-- Repo
-  - Generate a New Repo based on this template [Click Here](https://github.com/nexient-llc/container-template/generate) or use the "Use this template" button
-  - Note all the comments in `<>` in the README for information to add/change, remove all `<>` when finished
-  - [test.yaml](test.yaml) is for the [Container Structure Test](https://github.com/GoogleContainerTools/container-structure-test)
-  - Dockerfiles are stored in [Dockerfiles](Dockerfiles/) and separated by OS/Version
-  - Github Workflows cover doing two different OS's, with Alpine being treated as default
-    - Image Name in github workflows will need to match the repo created in next section
-- Docker
-  - Create a new Docker Hub Repo [Click Here](https://hub.docker.com/repositories)
-  - Select where you want to create the repo from the dropdown
-  - Enter the information and click create
-  - Once Created, click settings and enable Vulnerability Scanning
-
-### Using Different Registries
-If using another supported registry other than Dockerhub (the default for the template), you will need to change the `REGISTRY` default in the `Makefile` or set `export REGISTRY='ecr'` or add `REGISTRY='ecr` to each make command.
-
-### Ignore Files
-Double check the `.gitignore` and `.dockerignore` files to ensure there is nothing in your project that you want in git/docker that may be ignored by default. The files in the template repo are just large default/recommended ignores for multiple languages/os.
-
-<TEMPLATE ONLY, REMOVE IN GENERATED REPO - END>
-
 ## Quick Reference
 
-<Provide Fully Qualified Links here>
+<!-- Provide Fully Qualified Links here -->
 
-- Repo
-- [File An Issue](https://github.com/nexient-llc/container-template/issues/new/choose)
+- [Repo](https://github.com/nexient-llc/platform-images/)
+- [File An Issue](https://github.com/nexient-llc/platform-images/issues/new/choose)
 - [Documentation](#table-of-contents)
 
 ## Tagged Dockerfiles
 
-<Change to direct links to specific releases/tags and fully qualified URLs>
+<!-- Change to direct links to specific releases/tags and fully qualified URLs -->
 
- - [latest](Dockerfiles/Alpine/3/Dockerfile)
- - [0.0.1](Dockerfiles/Alpine/3/Dockerfile)
- - [0.0.1-ubuntu](Dockerfiles/Ubuntu/2204/Dockerfile)
- - [0.0.1-alpine](Dockerfiles/Alpine/3/Dockerfile)
+ - [latest](Dockerfiles/Ubuntu/2204/Dockerfile)
+ - [0.0.1](Dockerfiles/Ubuntu/2204/Dockerfile)
 
 ## Usage
 
@@ -90,12 +58,12 @@ This is just the list of available Make Targets/Commands, more specifics in usin
 - `make push` - Pushes to the provided registry
 - `make publish` - Runs build & push
 
-<Add ways to run image, cover several common use cases>
+<!-- Add ways to run image, cover several common use cases -->
 
 ### Quick Run
 - Standard Command
   ```
-  docker run -it --rm nexientdevops/container-template
+  docker run -it --rm nexientdevops/platform-images
   ```
 - Make
   ```
@@ -104,18 +72,18 @@ This is just the list of available Make Targets/Commands, more specifics in usin
 
 ## Configuration
 
-<If any, place config here>
+<!-- If any, place config here -->
 
 ## Troubleshooting
 
-<Add known issues and solutions>
+<!-- Add known issues and solutions -->
 
 ### Can't Close Container When Running Interactively
 - May have to close terminal, then run `docker stop` on the container
 
 ## Repo Documentation
 
-<In-Depth Documentation and local build info>
+<!-- In-Depth Documentation and local build info -->
 
 ### Build Locally
 
@@ -163,7 +131,7 @@ Build the image
 Run container structure test on Image
 - Standard
   ```
-    container-structure-test test --image nexientdevops/container-template:dev --config tests.yaml
+    container-structure-test test --image nexientdevops/platform-images:dev --config tests.yaml
   ```
 - Make
   ```
@@ -174,7 +142,7 @@ Run container structure test on Image
 Tag and Push Image to Registry
 - Standard
   ```
-    docker push nexientdevops/container-template:dev
+    docker push nexientdevops/platform-images:dev
   ```
 - Make
   ```
