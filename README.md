@@ -1,6 +1,6 @@
 # Platform Images <!-- omit in toc -->
 
-<!-- INSERT DESCRIPTION -->
+[![Build, Test, and Publish Ubuntu Image](https://github.com/nexient-llc/platform-images/actions/workflows/docker-ubuntu.yaml/badge.svg?branch=main)](https://github.com/nexient-llc/platform-images/actions/workflows/docker-ubuntu.yaml)
 
 ## Table Of Contents <!-- omit in toc -->
 Can be automanaged by [Markdown All in One](https://github.com/yzhang-gh/vscode-markdown) by Yu Zhang
