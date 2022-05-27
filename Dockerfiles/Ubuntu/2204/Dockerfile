@@ -19,7 +19,7 @@ RUN apt-get update \
   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
-      build-essential \
+      make \
       git \
       nodejs \
       openssh-server \
