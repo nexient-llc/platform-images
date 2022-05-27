@@ -21,6 +21,7 @@ RUN apt-get update \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
       git \
+      golang \
       make \
       nodejs \
       openssh-server \
