@@ -20,8 +20,8 @@ RUN apt-get update \
   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
-      make \
       git \
+      make \
       nodejs \
       openssh-server \
       python3-pip \
