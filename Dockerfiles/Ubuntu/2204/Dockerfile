@@ -5,6 +5,7 @@ ARG OPA_VERSION=0.37.1
 ARG TERRAFORM_VERSION=1.1.7
 ARG TFLINT_VERSION=0.34.1
 ARG SBOT_VERSION=1.1.0
+ARG GOLANGCI_LINT_VERSION=1.45.2
 
 # Do full OS setup including all package installs that can be done with tools
 # Packages are alphabetized for easy consumption
@@ -19,8 +20,8 @@ RUN apt-get update \
   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
-      build-essential \
       git \
+      make \
       nodejs \
       openssh-server \
       python3-pip \
@@ -55,6 +56,10 @@ RUN apt-get update \
   && curl -fsSLo sbot "https://github.com/restechnica/semverbot/releases/download/v$SBOT_VERSION/sbot-linux-amd64" \
   && chmod +x sbot \
   && mv sbot /usr/local/bin \
+  && curl -fsSLo golangci-lint.tar.gz "https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCI_LINT_VERSION}/golangci-lint-${GOLANGCI_LINT_VERSION}-linux-arm64.tar.gz" \
+  && tar -xzf golangci-lint.tar.gz \
+  && mv golangci-lint-*/golangci-lint /usr/local/bin \
+  && rm -rf golangci-lint* \
   && apt-get clean autoclean \
   && apt-get autoremove --yes \
   && rm -rf /app/* \
