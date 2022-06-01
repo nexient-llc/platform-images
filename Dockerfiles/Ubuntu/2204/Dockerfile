@@ -1,11 +1,17 @@
 FROM ubuntu:22.04
 
 ARG CONFTEST_VERSION=0.25.0
+ARG GO_VERSION=1.17.6
+ARG GOCACHE=/cache/go
+ARG GOLANGCI_LINT_CACHE=/cache/go
+ARG GOLANGCI_LINT_VERSION=1.46.2
 ARG OPA_VERSION=0.37.1
+ARG SBOT_VERSION=1.1.0
 ARG TERRAFORM_VERSION=1.1.7
 ARG TFLINT_VERSION=0.34.1
-ARG SBOT_VERSION=1.1.0
-ARG GOLANGCI_LINT_VERSION=1.45.2
+
+ENV GOCACHE=$GOCACHE
+ENV GOLANGCI_LINT_CACHE=$GOLANGCI_LINT_CACHE
 
 # Do full OS setup including all package installs that can be done with tools
 # Packages are alphabetized for easy consumption
@@ -20,9 +26,8 @@ RUN apt-get update \
   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get update \
   && apt-get install --yes --no-install-recommends \
+      build-essential \
       git \
-      golang \
-      make \
       nodejs \
       openssh-server \
       python3-pip \
@@ -32,11 +37,6 @@ RUN apt-get update \
   && pip install --no-cache-dir --upgrade pip \
   && ln -sf /usr/bin/python3 /usr/bin/python \
   && pip install --no-cache-dir pre-commit \
-  && curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null \
-  && AZ_REPO=$(lsb_release -cs) \
-  && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list \
-  && apt-get update \
-  && apt-get install --no-install-recommends --reinstall azure-cli \
   && set -ex \
   && curl -fsSLo conftest.tar.gz "https://github.com/open-policy-agent/conftest/releases/download/v$CONFTEST_VERSION/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz" \
   && tar -xf conftest.tar.gz \
@@ -57,10 +57,16 @@ RUN apt-get update \
   && curl -fsSLo sbot "https://github.com/restechnica/semverbot/releases/download/v$SBOT_VERSION/sbot-linux-amd64" \
   && chmod +x sbot \
   && mv sbot /usr/local/bin \
-  && curl -fsSLo golangci-lint.tar.gz "https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCI_LINT_VERSION}/golangci-lint-${GOLANGCI_LINT_VERSION}-linux-arm64.tar.gz" \
+  && curl -fsSLo go.tar.gz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
+  && tar -xzf go.tar.gz \
+  && cp go/bin/* /usr/local/bin \
+  && mv go /usr/local \
+  && mkdir -p $GOCACHE \
+  && curl -fsSLo golangci-lint.tar.gz "https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCI_LINT_VERSION}/golangci-lint-${GOLANGCI_LINT_VERSION}-linux-amd64.tar.gz" \
   && tar -xzf golangci-lint.tar.gz \
   && mv golangci-lint-*/golangci-lint /usr/local/bin \
   && rm -rf golangci-lint* \
+  && mkdir -p $GOLANGCI_LINT_CACHE \
   && apt-get clean autoclean \
   && apt-get autoremove --yes \
   && rm -rf /app/* \
