@@ -5,18 +5,26 @@ commandTests:
     command: bash
     args:
       - --version
-  - name: Ensure curl
-    command: curl
-    args:
-      - --version
   - name: Ensure conftest
     command: conftest
+    args:
+      - --version
+  - name: Ensure curl
+    command: curl
     args:
       - --version
   - name: Ensure git
     command: git
     args:
       - --version
+  - name: Ensure go
+    comand: go
+    args:
+      - version
+  - name: Ensure golangci-lint
+    command: golangci-lint
+    args:
+      - version
   - name: Ensure nodejs
     command: node
     args:
@@ -29,10 +37,6 @@ commandTests:
     command: opa
     args:
       - version
-  - name: Verify Python symlink
-    command: python
-    args:
-      - --version
   - name: Ensure pip
     command: pip
     args:
@@ -41,6 +45,10 @@ commandTests:
     command: repo
     args:
       - --version
+  - name: Ensure SemVer Bot
+    command: sbot
+    args:
+      - help
   - name: Ensure ssh
     command: ssh
     args:
@@ -49,12 +57,12 @@ commandTests:
     command: terraform
     args:
       - --version
-  - name: Ensure SemVer Bot
-    command: sbot
-    args:
-      - help
   - name: Ensure tflint
     command: tflint
+    args:
+      - --version
+  - name: Verify Python symlink
+    command: python
     args:
       - --version
 fileExistenceTests:
@@ -62,8 +70,14 @@ fileExistenceTests:
     path: /app
     shouldExist: true
 # Doesn't work with ARGS
-# metadataTest:
-#   env:
+metadataTest:
+  env:
+    - key: GOCACHE
+      isRegex: false
+      value: /cache/go
+    - key: GOLANGCI_LINT_CACHE
+      isRegex: false
+      value: /cache/go
 #     - key: CONFTEST_VERSION
 #       isRegex: true
 #       value: \d+\.\d+\.\d+
