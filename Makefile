@@ -69,4 +69,4 @@ publish: build push
 check::
 	container-structure-test test \
 		--image $(REPO):$(TAG) \
-		--config tests.yaml
+		--config test.yaml
