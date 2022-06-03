@@ -18,7 +18,7 @@ commandTests:
     args:
       - --version
   - name: Ensure go
-    comand: go
+    command: go
     args:
       - version
   - name: Ensure golangci-lint
@@ -69,7 +69,6 @@ fileExistenceTests:
   - name: App working directory
     path: /app
     shouldExist: true
-# Doesn't work with ARGS
 metadataTest:
   env:
     - key: GOCACHE
@@ -78,6 +77,7 @@ metadataTest:
     - key: GOLANGCI_LINT_CACHE
       isRegex: false
       value: /cache/go
+# Doesn't work with ARGS
 #     - key: CONFTEST_VERSION
 #       isRegex: true
 #       value: \d+\.\d+\.\d+
